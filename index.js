@@ -1,6 +1,6 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const pino = require('express-pino-logger')();
+// const bodyParser = require('body-parser');
+// const pino = require('express-pino-logger')();
 
 // const path = require('path');
 
@@ -18,9 +18,9 @@ const client = require('twilio')(
 );
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(pino);
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+// app.use(pino);
 
 //for deployment to heroku
 /*
