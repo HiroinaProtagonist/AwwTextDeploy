@@ -1,0 +1,32 @@
+.mms-form {
+    text-align: center;
+    padding: 1em;
+  }
+
+  /* .mms-form label {
+    display: block;
+  } */
+
+  #hiddenPlaceholder {
+    color: white;
+    visibility: hidden;
+  }
+
+  .mms-form input,
+  .mms-form textarea {
+    font-size: 1em;
+    width: 20%;
+    min-width: 8em;
+    box-sizing: border-box;
+  }
+  .mms-form div {
+    margin-bottom: 0.5em;
+  }
+  .mms-form button {
+    font-size: 1em;
+    width: 20%;
+    min-width: 8em;
+  }
+  .mms-form.error {
+    outline: 2px solid #f00;
+  }
