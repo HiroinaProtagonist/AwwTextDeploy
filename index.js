@@ -1,6 +1,5 @@
 const express = require('express');
-
-// const path = require('path');
+const bodyParser = require('body-parser');
 
 const request = require('request');
 const requestPromise = require('request-promise');
@@ -16,21 +15,23 @@ const client = require('twilio')(
 );
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-//for deployment to heroku
-/*
-const publicPath = path.join(__dirname, '..', 'public');
-app.use(express.static(publicPath));
+const path = require('path');
 
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, 'client/build')))
+
+//Send back index.html for requests not explicitly covered
 app.get('*', (req, res) => {
-    res.sendFile(path.join(publicPath, 'index.html'));
-});
-*/
+  res.sendFile(path.join(__dirname + '/client/build/index.html'))
+})
 
 //routes
-app.get('/', (req, res) => {
-  res.send('hello');
-});
+// app.get('/hello', (req, res) => {
+//   res.send('hello');
+// });
 
 app.post('/api/mmsmessages', (req, res) => {
     const options = {
@@ -44,9 +45,10 @@ app.post('/api/mmsmessages', (req, res) => {
 
     return requestPromise(options)
         .then(function(body) {
-            //console.log(JSON.parse(body));
             
+            //Get reddit data
             let redditData = JSON.parse(body);
+            console.log(redditData);
 
             console.log("Title: " + redditData.data.children[0].data.title + ' (' +
                 redditData.data.children[0].data.permalink + ')');
@@ -56,6 +58,7 @@ app.post('/api/mmsmessages', (req, res) => {
             
             let isVideo = redditData.data.children[0].data.is_video;
 
+            // send message with reddit data
             res.header('Content-Type', 'application/json');
             client.messages
             .create({
