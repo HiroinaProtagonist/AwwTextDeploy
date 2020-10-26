@@ -42,7 +42,9 @@ class MMSForm extends Component {
                 Send message
               </button>
             </form>
-            <span></span>
+            <span>
+              {this.state.error ? 'There was an error sending your message. Please check the number and try again.' : ''}
+            </span>
           </div>
         );
     }
